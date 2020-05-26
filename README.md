@@ -8,7 +8,6 @@ In this project, we will create an ETL pipeline using Apache Airflow to build a 
 ## Summary
 * [Project structure](#Structure)
 * [Datasets](#Datasets)
-* [Analytics](#Analytics)
 * [Schema](#Schema)
 * [Execute](#Execute)
 
@@ -54,25 +53,25 @@ songplays - records in event data associated with song plays. Columns for the ta
 Access the server http://localhost:8080 
 3. Create AWS Connection & Redshift Connection as follows
 
-**AWS Connection**
-Conn Id: Enter aws_credentials.
-Conn Type: Enter Amazon Web Services.
-Login: Enter your Access key ID from the IAM User credentials you downloaded earlier.
-Password: Enter your Secret access key from the IAM User credentials you downloaded earlier.
+**AWS Connection**<br><br>
+<b>Conn Id :</b> Enter aws_credentials. <br>
+<b>Conn Type :</b> Enter Amazon Web Services. <br>
+<b>Login :</b> Enter your Access key ID from the IAM User credentials you downloaded earlier. <br>
+<b>Password :</b> Enter your Secret access key from the IAM User credentials you downloaded earlier. <br><br>
 
-**Redshift Connection**
-Conn Id: Enter redshift.
-Conn Type: Enter Postgres.
-Host: Enter the endpoint of your Redshift cluster, excluding the port at the end. 
-Schema: This is the Redshift database you want to connect to.
-Login: Enter awsuser.
-Password: Enter the password created when launching the Redshift cluster.
-Port: Enter 5439.
+**Redshift Connection**<br><br>
+<b>Conn Id :</b> Enter redshift. <br>
+<b>Conn Type :</b> Enter Postgres. <br>
+<b>Host :</b> Enter the endpoint of your Redshift cluster, excluding the port at the end.  <br>
+<b>Schema :</b> This is the Redshift database you want to connect to. <br>
+<b>Login :</b> Enter awsuser. <br>
+<b>Password :</b> Enter the password created when launching the Redshift cluster. <br>
+<b>Port :</b> Enter 5439. <br>
 
 * Task dependencies are set as following:
 
-![imgs/flow1](imgs/flow.png)
+![imgs/flow1](images/flow.png)
 
-![imgs/flow1](imgs/flow2.png)
+![imgs/flow1](images/flow2.png)
 
 
