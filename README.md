@@ -71,8 +71,8 @@ Port: Enter 5439.
 
 * Task dependencies are set as following:
 
-![imgs/flow1](imgs/flow.png)
+![imgs/flow1](images/flow.png)
 
-![imgs/flow1](imgs/flow2.png)
+![imgs/flow1](images/flow2.png)
 
 
