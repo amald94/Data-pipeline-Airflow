@@ -19,6 +19,11 @@ log_s3_bucket = "log_data"
 default_args = {
     'owner': 'Airflow',
     'start_date': days_ago(2),
+    'depends_on_past': False,
+    'retries': 3,
+    'retry_delay': timedelta(minutes=5),
+    'catchup': False,
+    'email_on_retry': False
 }
 
 dag_name = 'sparkify_etl'
@@ -26,6 +31,8 @@ dag_name = 'sparkify_etl'
 dag = DAG(dag_name,
           default_args=default_args,
           description='Load and transform data in Redshift with Airflow',
+          schedule_interval='0 * * * *',
+          max_active_runs = 1       
         )
 
 start_operator = DummyOperator(task_id='Begin_execution',  dag=dag)
