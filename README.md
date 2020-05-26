@@ -8,7 +8,6 @@ In this project, we will create an ETL pipeline using Apache Airflow to build a 
 ## Summary
 * [Project structure](#Structure)
 * [Datasets](#Datasets)
-* [Analytics](#Analytics)
 * [Schema](#Schema)
 * [Execute](#Execute)
 
