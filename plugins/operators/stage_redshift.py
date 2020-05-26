@@ -5,7 +5,7 @@ from airflow.contrib.hooks.aws_hook import AwsHook
 
 class StageToRedshiftOperator(BaseOperator):
     ui_color = '#358140'
-
+    template_fields = ("s3_key",)
     copy_events = """
             COPY {}
             FROM '{}'
@@ -14,15 +14,6 @@ class StageToRedshiftOperator(BaseOperator):
             FORMAT AS JSON '{}'
             TIMEFORMAT as 'epochmillisecs'
         """
-    copy_songs = """ 
-            COPY {}
-            FROM '{}'
-            ACCESS_KEY_ID '{}'
-            SECRET_ACCESS_KEY '{}'
-            FORMAT AS JSON '{}'   
-    """
-
-
     @apply_defaults
     def __init__(self,
                  redshift_conn_id="",
@@ -45,21 +36,26 @@ class StageToRedshiftOperator(BaseOperator):
     def execute(self, context):
         aws_hook = AwsHook(self.aws_credential_id)
         credentials = aws_hook.get_credentials()
-
-        s3_path = "s3://{}/{}".format(self.s3_bucket, self.s3_key)
-
-        if self.table_name == 'staging_songs':
-            copy_sql = self.copy_songs.format(self.table_name, s3_path, 
-                                                credentials.access_key, 
-                                                credentials.secret_key, 'auto')
-        else:
-            copy_sql = self.copy_events.format(self.table_name, s3_path, 
-                                                credentials.access_key, 
-                                                credentials.secret_key, 'auto')
-
-
         redshift_hook = PostgresHook(postgres_conn_id = self.redshift_conn_id)
+        self.log.info("Clearing data from staging table")
+        redshift_hook.run("DELETE FROM {}".format(self.table))
+        self.log.info("Loading data from s3 to statging table")
+        s3_path = "s3://{}".format(self.s3_bucket)
+        if self.execution_date:
+            # Backfill a specific date
+            year = self.execution_date.strftime("%Y")
+            month = self.execution_date.strftime("%m")
+            day = self.execution_date.strftime("%d")
+            s3_path = '/'.join([s3_path, str(year), str(month), str(day)])
+
+        s3_path = s3_path + '/' + self.s3_key
+        copy_sql = self.copy_events.format(self.table_name, s3_path, 
+                                                credentials.access_key, 
+                                                credentials.secret_key, 'auto')
+
+
         redshift_hook.run(copy_sql)
+
 
 
 
