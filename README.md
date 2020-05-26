@@ -53,13 +53,13 @@ songplays - records in event data associated with song plays. Columns for the ta
 Access the server http://localhost:8080 
 3. Create AWS Connection & Redshift Connection as follows
 
-**AWS Connection**
+**AWS Connection**<br><br>
 <b>Conn Id :</b> Enter aws_credentials. <br>
 <b>Conn Type :</b> Enter Amazon Web Services. <br>
 <b>Login :</b> Enter your Access key ID from the IAM User credentials you downloaded earlier. <br>
-<b>Password :</b> Enter your Secret access key from the IAM User credentials you downloaded earlier. <br>
+<b>Password :</b> Enter your Secret access key from the IAM User credentials you downloaded earlier. <br><br>
 
-**Redshift Connection**
+**Redshift Connection**<br><br>
 <b>Conn Id :</b> Enter redshift. <br>
 <b>Conn Type :</b> Enter Postgres. <br>
 <b>Host :</b> Enter the endpoint of your Redshift cluster, excluding the port at the end.  <br>
